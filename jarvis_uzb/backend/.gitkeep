@@ -1,0 +1,1255 @@
+hammmasni qosh qotib qolma 1️⃣ Sayt dizayni va interfeys
+
+Minimal va zamonaviy dizayn.
+
+Asosiy ranglar: fon uchun gradient yoki 3D animatsiya.
+
+Headerda: sayt nomi, menyu (Jarvis haqida, Ilova, Yuklab olish, Ma’lumotlar).
+
+Footerda: muallif va loyiha ma’lumotlari (Ism: Koma, iTech loyihasi).
+
+2️⃣ 3D modullar
+
+Spline / React Spline ishlatiladi.
+
+Orqa fon: 3D robot yoki Jarvis modeli animatsiyali.
+
+Minimal 2–3 ta boshqa 3D modul bo‘lsin (masalan: suzuvchi obyektlar, interaktiv jarvis hologram).
+
+Kod namunasi:
+
+import Spline from '@splinetool/react-spline/next';
+
+export default function Home() { return ( <main> <Spline scene="loading..." /> </main> ); }
+
+3️⃣ Jarvis va loyiha haqida ma’lumot
+
+Saytda Jarvis nima ekanligi, asoschisi (sizning ismingiz), qanday ishlashi haqida qisqa va aniq ma’lumot.
+
+AI tizimi, database, xavfsizlik, server, ilova (C#) haqida bo‘limlar.
+
+Foydalanuvchi o‘z ma’lumotlarini ko‘ra olishi, yuklab olishi mumkin bo‘lsin.
+
+4️⃣ Backend va yuklab olish
+
+Foydalanuvchi ma’lumotlarni yuklab olish tugmasi orqali ZIP yoki exe fayl ko‘rinishida ilovani olishi mumkin bo‘lsin.
+
+Backend har bir foydalanuvchi so‘rovini qayd etsin (log), xavfsizlikni ta’minlasin.
+
+5️⃣ Interaktivlik va animatsiya
+
+Foydalanuvchi sahifaga kirganda 3D Jarvis animatsiyasi ishlaydi.
+
+Scroll, hover va kliklarda obyektlar harakat qiladi.
+
+Sayt barcha platformalarda ishlashi kerak (responsive + kross-platforma).
+
+6️⃣ Natija
+
+To‘liq ishlaydigan React + Next.js sayt bo‘lsin.
+
+3D animatsiyalar, interaktiv modullar, ma’lumotlar va yuklab olish funksiyasi bilan.
+
+Kod toza, professional va ishlab chiqarishga tayyor bo‘lsin.
+
+Qo‘shimcha: kerak bo‘lsa, frontend va backendni bir-biriga integratsiya qilishni ham yoz, shunda foydalanuvchi ilovani saytdan to‘g‘ridan-to‘g‘ri yuklab oladi.” sayt zor 3d bolsin men go live ni bossam osha saytga olib kirib ketsin
+Maqsad:
+Menga toʻliq ishlaydigan, ideal dizaynli, interaktiv 3D sayt va unga bogʻlangan C# ilovasi + Python (FastAPI) backend yarating. Tizim quyidagilarni toʻliq bajarishi shart:
+
+Frontend: React/Next.js + Electron (desktop), Three.js / Spline (@splinetool/react-spline/next) orqali 3D sahna (Jarvis / robot), orqa fon 3D modeli va 2–3 qoʻshimcha 3D modul.
+
+Backend: Python (FastAPI) — WebSocket (ws://localhost:8000/ws) orqali boy JSON xabarlar almashish (matn, Base64 audio, animation_triggers).
+
+Desktop ilova: C# (WPF yoki .NET MAUI) versiyasi bo‘lsin, sayt orqali yuklab olinadigan installer/zip mavjud. Ilova frontend bilan bir xil API/WSga ulanadi.
+
+TTS/STT: Tanlangan TTS (OpenAI TTS / ElevenLabs / Coqui) integratsiyasi; STT uchun OpenAI Whisper yoki muqobil. Server matnni ovozga aylantiradi va Base64 audio bilan yuboradi.
+
+AI integratsiya: OpenAI (yoki Gemini) bilan “Tool Calling” funksiyasini ishlatib, murakkab tabiiy til buyruqlarini aniqlash (get_intent_from_ai). Tez buyruqlar uchun lokal IntentParser ishlaydi.
+
+Buyruq banki: 40,000 ta takrorlanmas, haqiqiy kompyuterga oid buyruqlarni boshqarish qobiliyati — commands.txt yoki DB ichida.
+
+Xavfsizlik: secrets manager (Vault yoki cloud KMS), TLS/HTTPS, WAF qoida, rate limiting, input validation, SAST/DAST pipeline, sandboxed code execution (agar ilova code run imkoniyati bersa).
+
+Maʼlumotlar bazasi: SQLite (lokal uchun), migratsiya fayllari, backup & restore. Chat tarixlari, foydalanuvchi sozlamalari, voice presets saqlansin.
+
+Multilingual + Code support: Saytda va ilovada foydalanuvchi quyidagi tillarda kod yozishi, yuklashi va ko‘rishi mumkin: HTML/CSS/JS, Python, C, C++, C#, Java, Rust, Go va boshqalar. Ularni server bilan xavfsiz almashish/compile/run uchun sandbox variantlari bo‘lsin (faoliyatni xavfsiz cheklash bilan).
+
+Yuklab olish: Foydalanuvchilar sayt orqali C# ilovasini yoki Electron appni yuklab olishlari mumkin bo‘lsin. Backend har bir yuklab olishni loglasin.
+
+UI/UX: Ideal, zamonaviy, responsive; header, hero (3D), features, download, docs, contact; tema: futuristik, to‘q-ko‘k / metal-red aksentlar.
+
+Deploy: Dockerfile / docker-compose + GitHub Actions CI (lint, test, build, push). TLS / certbot uchun Nginx reverse proxyni tavsiya qil.
+
+Qabul mezonlari (Acceptance Criteria): barcha endpointlar ishlaydi, WebSocket orqali matn+audio+animation trigger qaytadi; 3D sahna brauzerda yuklanadi; ilova sayt orqali yuklab olinadi; TTS sifatli va lab sync uchun phoneme/viseme jadvali taqdim etilgan; xavfsizlik skanerlari o‘tkazilgan.
+
+✅ Aniq yetkazib beriladigan narsalar (Deliverables)
+
+Full repo: frontend/, backend/, desktop/ papkalari.
+
+Frontend: Next.js + React + Spline integratsiyali sahifa (Home komponentida Spline kodi), JarvisModel.jsx (3D model va animasyon), WebSocket client.
+
+Backend: FastAPI server (main.py), ai_services.py, command_handler.py, platform_utils.py, database_manager.py, security_utils.py, WebSocket handler. JSON xabar formatini dokumentatsiya qiling.
+
+Desktop: C# (WPF yoki .NET MAUI) ilova — WebSocket klient, mener, o‘rnatish skripti yoki exe/zip.
+
+TTS/STT integratsiya kodlari va .env.example (OPENAI_API_KEY yoki boshqa TTS API KEY).
+
+Command bank: commands.txt (40,000 ta namunaviy buyruq) yoki DB import script.
+
+Docs: README (deploy, env, run), API docs (OpenAPI/Swagger), security.md (runbook), LICENSE.
+
+CI/CD: GitHub Actions workflow fayllari.
+
+Demo: local run instruktsiyalari va test skriptlar.
+
+🔧 Texnik talablarga aniq ko‘rsatmalar (implementation detail — Gemini-ga)
+
+JSON xabar formati (WebSocket):
+
+{
+  "type": "response",
+  "text": "Salom, men Jarvisman. Nima yordam kerak?",
+  "audio_base64": "<base64-audio-data>",
+  "animation_triggers": [
+    {"name":"nod_head","value":0.8},
+    {"name":"mouth_open","value":0.6},
+    {"name":"gesture_right","value":1}
+  ],
+  "meta": {"intent":"open_browser","confidence":0.95}
+}
+
+
+API Endpoints (masalan):
+
+POST /api/command — matnli buyruq yuborish (backend tekshiradi va WS orqali javob yuboradi).
+
+POST /api/upload — fayl yuklash (faylni virus-scan -> S3/Local saqlash).
+
+GET /api/download/app — ilova yuklab olish.
+
+GET /api/commands — command bankni olish (paginatsiya bilan).
+
+GET /ws — WebSocket endpoint (FastAPI websockets).
+
+Intent parsing workflow:
+
+Avvalo lokal IntentParser (regex + keyword) sinovi.
+
+Agar local not confident (<0.85) yoki unknown → get_intent_from_ai chaqiriq → OpenAI Tool Calling bilan intent va parameters qaytadi.
+
+Har bir intent mapping JSON bilan configda saqlansin (intents.json).
+
+TTS & Viseme:
+
+Backend TTS render qilgach, phoneme yoki viseme timing faylini ham hosil qilsin (Rhumbarb/Rhubarb-like yoki forced-alignment).
+
+Frontend viseme_map.json asosida blendshapelarni animatsiya qilsin.
+
+Security:
+
+.env da API kalitlar va DB parollari; .gitignore ga qoʻyilsin.
+
+TLS: Nginx + certbot yoki cloud LB.
+
+Rate limiting: per IP va per user.
+
+Secrets: Hashicorp Vault yoki cloud secret manager integratsiyasi.
+
+Sandbox: Kodni code run imkoniyati mavjud bo‘lsa — Docker-in-docker yoki Firecracker-type sandbox.
+
+Multilanguage + Code execution support:
+
+Fayl formatlarini qabul qilish: .py, .js, .c, .cpp, .cs, .java va boshqalar.
+
+Compile/run uchun worker queue (RabbitMQ/Redis + Celery / RQ) — har job uchun resource limits.
+
+Natija logs va output frontendga yuborilsin.
+
+Spline va 3D modullar:
+
+Next.js sahifasiga Spline komponenti joylashtirsin:
+
+import Spline from '@splinetool/react-spline/next';
+export default function Home(){ return <main><Spline scene="https://prod.spline.design/your-scene-url/scene.splinecode" /></main> }
+
+
+Qo‘shimcha 3D modul: Three.js GLTFLoader bilan interaktiv model yuklash / AnimationMixer.
+
+Desktop (C#) ilova:
+
+WebSocket client (System.Net.WebSockets).
+
+UI: Jarvis info, play audio, show 3D preview (agar possible — WebView2 yoki Embedded Browser).
+
+Auto-update yoki yuklab olish uchun backend GET /api/download/app endpoint.
+
+🧪 Test va qabul mezonlari (Acceptance tests)
+
+Localda uvicorn main:app --reload + npm run dev bilan toʻliq ishlash.
+
+WebSocketga soʻrov yuborilganda, JSON (matn+audio+anim) keladi va frontend uni toʻgʻri ijro qiladi.
+
+TTS sifati: 48kHz yoki MP3 192kbps; lab viseme timing bilan 80%+ sinxron.
+
+Kompilyatsiya: C# ilova backendga ulanib audio va animni ko‘rsatadi.
+
+Security scan: SAST ok, DAST kamida basic OWASP check o‘tdi.
+
+📦 Yakuniy buyruq (Gemini/ChatGPT ga bera turadigan konkret vazifa)
+
+“Iltimos, yuqoridagi barcha talablar asosida toʻliq loyiha repo’sini generatsiya qil: frontend (Next.js + Spline), backend (FastAPI), desktop C# ilova, TTS/STT integratsiyasi, WebSocket boy JSON xabar formati, intents.json va 40 000 ta command sample, deploy/CI fayllari va dokumentatsiyasini. Har bir modulni izohlab (README), run instruktsiyasini yozib bering. Kodlar ishlab chiqarishga yaqin holatda bo‘lsin: toza, modul, xavfsiz.”
+
+Men uchun to‘liq, ishlab chiqarishga yaqin va ideal sifatda quyidagi loyihani generatsiya qil: 
+“Jarvis AI Platform” — quyidagi komponentlar bilan:
+
+A. Frontend: Next.js + React + Electron (desktop build) + @splinetool/react-spline/next + three.js integratsiyasi. Home sahifasi orqa fonida Spline sahnasi bo‘lsin: scene URL yoqilganda 3D Jarvis robot va 2–3 qoʻshimcha interaktiv 3D modullar (hologram, suzuvchi elementlar, HUD). JarvisModel.jsx komponenti animationlarga javob bersin (nod, mouth_open, gesture_x) va blendshape/viseme mapping bilan ishlasin.
+
+B. Backend: Python (FastAPI). API va WebSocket (`ws://localhost:8000/ws`) orqali boy JSON (text, audio_base64, animation_triggers, meta) promt yuborilsin. main.py, ai_services.py (OpenAI / Gemini Tool Calling + TTS/STT adapter), command_handler.py (local IntentParser + get_intent_from_ai), platform_utils.py, database_manager.py (SQLite + migration), security_utils.py.
+
+C. Desktop: C# (WPF yoki .NET MAUI) ilova — WebSocket client, audio player (Base64->play), WebView2 (Next.js sahifani ichida ko‘rsatish mumkin), download manager. Ilova backend orqali update va telemetry yuborsin.
+
+D. TTS/STT: server tarafda TTS (OpenAI TTS yoki ElevenLabs/Coqui variantlari) va STT (OpenAI Whisper yoki muqobil). Backend TTS natijasini Base64 qilib WS orqali yuborsin. TTS uchun 48kHz, 16-bit PCM yoki 192kbps MP3.
+
+E. 3D-lab sync: Backend TTS bilan birga viseme/phoneme timing (Rhubarb/Gentle/forced-alignment) chiqarsin va animation_triggersga joylasin. frontend ushbu triggerlar bilan blendshape’larni ishga tushiradi.
+
+F. Command bank / samples: `commands.txt` ichida 40,000 ta takrorlanmas, haqiqiy kompyuter buyruqlari (O‘zbek tilida) bo‘lsin. Backend ushbu bankni DB ga import qila olsin va per-tenant throttling bilan ishlasin.
+
+G. Security: TLS/HTTPS, secrets manager (Vault yoki cloud KMS), rate limiting, WAF, input validation, SAST (eslint/flake8/sonar) va DAST (OWASP ZAP) pipeline, sandboxed code execution (worker-larda Docker sandbox).
+
+H. DevOps: Dockerfile, docker-compose (local); k8s/Helm tavsif (prod), GitHub Actions CI (lint, test, build, push), infra-as-code (Terraform) tavsiya.
+
+I. Deliverables: to‘liq repo: frontend/, backend/, desktop/, infra/, docs/, commands.txt (40k), OpenAPI spec, README, run scripts, CI workflows.
+
+Qo‘shimcha: har bir modul uchun README, sample .env.example, test skriptlar va acceptance criteria yarating. Loyihani xavfsiz va qonuniy qiling (persona/celebrity voice uchun ruxsat talab qilinishini ta’kidlang).
+2) Loyihaning umumiy arxitekturasi (one-glance)
+Client (Electron / Browser)
+
+Next.js sahifa (Spline 3D)
+
+WebSocket client
+
+Audio konteyner
+
+Server (FastAPI)
+
+HTTP API (upload, download, auth)
+
+WebSocket (real-time)
+
+ai_services (intent parsing, tool calling, TTS/STT)
+
+command_handler (local vs AI intent routing)
+
+database_manager (SQLite)
+
+security_utils
+
+worker queue (Redis + RQ / Celery)
+
+Desktop (C#)
+
+WebSocket client, WebView2, audio player, auto-update
+
+Storage
+
+Artifacts S3 or local storage
+
+Observability
+
+Prometheus + Grafana
+
+ELK or Loki
+
+CI/CD
+
+GitHub Actions: lint/test/build/publish
+
+3) Fayl tuzilmasi (to‘liq)
+bash
+Copy code
+/project-root
+  /frontend
+    /pages
+      index.jsx
+    /components
+      JarvisModel.jsx
+      HUD.jsx
+      AudioPlayer.jsx
+    package.json
+    next.config.js
+    tailwind.config.js
+  /backend
+    /app
+      main.py
+      ai_services.py
+      command_handler.py
+      platform_utils.py
+      database_manager.py
+      security_utils.py
+      websocket_manager.py
+      models.py
+      schemas.py
+      utils/
+        viseme_generator.py
+        tts_adapter.py
+        stt_adapter.py
+    requirements.txt
+    Dockerfile
+  /desktop
+    /CSharpProject
+      Program.cs
+      MainWindow.xaml
+      WebSocketClient.cs
+    build_scripts/
+  /infra
+    docker-compose.yml
+    k8s/
+      deployment.yaml
+      ingress.yaml
+    terraform/
+  /docs
+    architecture.md
+    api.md
+    security.md
+  commands.txt   # 40,000 lines
+  README.md
+  .env.example
+  .github/workflows/ci.yml
+4) Backend — muhim modul va kod ssenariylari (qisqacha namunalar)
+4.1 main.py — FastAPI + WebSocket
+python
+Copy code
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from app.websocket_manager import ConnectionManager
+
+app = FastAPI()
+manager = ConnectionManager()
+
+@app.websocket("/ws")
+async def websocket_endpoint(ws: WebSocket):
+    await manager.connect(ws)
+    try:
+        while True:
+            data = await ws.receive_json()
+            # data: {"type":"command","text":"Chrome ni och"}
+            await manager.handle_message(ws, data)
+    except WebSocketDisconnect:
+        manager.disconnect(ws)
+4.2 websocket_manager.py
+connection tracking, broadcast, send structured JSON.
+
+4.3 ai_services.py — interfeys
+get_intent_from_ai(text) -> {intent, params, confidence}
+
+tts_generate_audio(text, voice) -> bytes (48kHz PCM or mp3)
+
+stt_transcribe(audio_bytes) -> text
+
+call_tool(tool_name, params) (Tool Calling mapping)
+
+4.4 command_handler.py
+handle_command(text, user):
+
+run local IntentParser (regex + keywords). If match → execute local action function.
+
+else call get_intent_from_ai.
+
+Based on intent route to executor or trigger AI response.
+
+On AI response, generate TTS + viseme timing → send via WS with animation_triggers.
+
+5) WebSocket JSON schema (ancha muhim — frontend bilan aniq kelish)
+Server → Client (response):
+
+json
+Copy code
+{
+  "type":"response",
+  "text":"Salom, men Jarvisman. Qanday yordam beray?",
+  "audio_base64":"<base64-encoded-audio>",
+  "audio_format":"wav", 
+  "audio_sample_rate":48000,
+  "animation_triggers":[
+    {"name":"mouth_open","value":0.8},
+    {"name":"nod_head","value":0.4},
+    {"name":"gesture_right","value":1}
+  ],
+  "visemes":[
+    {"phoneme":"AA","start":0.12,"end":0.18,"blend":0.9},
+    {"phoneme":"M","start":0.18,"end":0.22,"blend":0.0}
+  ],
+  "meta":{"intent":"tell_story","confidence":0.92}
+}
+Client → Server (command):
+
+json
+Copy code
+{
+  "type":"command",
+  "text":"Chrome da yangi tab och va google.com ni yukla",
+  "user_id":"user-123",
+  "session_id":"sess-456"
+}
+6) Viseme/phoneme mapping (lab-sinch uchun)
+Frontend viseme_map.json bo‘lsin:
+
+json
+Copy code
+{
+  "AA": "mouth_A",
+  "EE": "mouth_E",
+  "OH": "mouth_O",
+  "MBP": "mouth_closed",
+  "FV": "mouth_teeth",
+  "TH": "tongue_out"
+}
+Front-endda bu blendshape nomlari bilan mos bo‘lishi lozim.
+
+Viseme timing ni server forced-alignment (Rhubarb / Gentle / MFA) bilan hosil qiling; agar TTS xizmatiyu viseme bermasa, approximate mapping foydali.
+
+7) Frontend: Next.js + Spline sahnasi (Home misoli)
+jsx
+Copy code
+// pages/index.jsx
+import Spline from '@splinetool/react-spline/next';
+import JarvisModel from '../components/JarvisModel';
+
+export default function Home(){
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-indigo-900">
+      <div className="fixed inset-0 pointer-events-none">
+        <Spline scene="https://prod.spline.design/YOUR_SCENE_URL/scene.splinecode" />
+      </div>
+      <div className="relative z-10">
+        <JarvisModel />
+        {/* UI controls */}
+      </div>
+    </main>
+  );
+}
+JarvisModel.jsx should accept WS events and apply animation_triggers to AnimationMixer / blendShapes.
+
+8) C# Desktop ilova (soddalashtirilgan skelet)
+Use .NET 6+ (WPF) yoki .NET MAUI (cross-platform).
+
+Use ClientWebSocket to connect to ws://localhost:8000/ws.
+
+Decode Base64 audio -> feed to NAudio (Windows) or cross-platform audio lib.
+
+Optionally embed WebView2 to show Next.js page.
+
+csharp
+Copy code
+// WebSocketClient.cs (concept)
+using System.Net.WebSockets;
+ClientWebSocket ws = new ClientWebSocket();
+await ws.ConnectAsync(new Uri("ws://localhost:8000/ws"), CancellationToken.None);
+Provide UI: Play/Pause, Download App, Voice selection, Persona selection.
+
+9) Database schema (SQLite)
+sql
+Copy code
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  email TEXT,
+  role TEXT,
+  created_at DATETIME
+);
+
+CREATE TABLE sessions (
+  id TEXT PRIMARY KEY,
+  user_id TEXT,
+  created_at DATETIME
+);
+
+CREATE TABLE messages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  session_id TEXT,
+  role TEXT, -- user / assistant / system
+  text TEXT,
+  audio_url TEXT,
+  created_at DATETIME
+);
+
+CREATE TABLE commands (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  command_text TEXT UNIQUE,
+  category TEXT,
+  created_at DATETIME
+);
+10) 40,000 buyruqni yaratish — strategiya va skript (safe, high-quality)
+Masala: bir-birini takrorlamaydigan, “haqiqiy” buyruqlar. Yaxshi usul — kategoriyalar + verb + object + modifier qatoridan generatsiya qilish, ammo har bir jumla semantik bo‘lsin.
+
+Approach:
+
+Kategoriya: Chrome, Fayl, Media, System, Terminal, Desktop, Network, DevTools, Editor, Git, DB
+
+Verb list: och, yop, yarat, o‘chirish, nomini o‘zgartir, yukla, ko‘rsat, ijro et, to‘xtat, restart,...
+
+Object list: Documents papkasi, Downloads, index.html, rasm.png, youtube.com, spotify, terminal, VSCode
+
+Modifier: bugungi sana, 50% hajm, background, incognito, sudo bilan, root bilan, admin huquqi bilan, specific path
+
+Skript misoli (Python) — bu avval berilgan skriptdan takomillashtirilgan variant:
+
+python
+Copy code
+import random, itertools, json
+cats = ["Chrome","Fayl","Media","System","Terminal","Network","Editor"]
+verbs = ["och","yop","yarat","o‘chirish","nomini o‘zgartir","yukla","ijro et","to‘xtat","restart qil"]
+objects = ["Documents papkasidagi fayl","Downloads papkasidagi rasm.png","youtube.com sahifasini","spotify o‘ynash ro‘yxatini"]
+mods = ["bugungi sana bilan","20% balandroq hajmda","fon rejimida","incognito rejimida","admin huquqi bilan"]
+
+commands = set()
+while len(commands) < 40000:
+    c = random.choice(cats)
+    v = random.choice(verbs)
+    o = random.choice(objects)
+    m = random.choice(mods) if random.random() < 0.6 else ""
+    cmd = f"{c} da {o} ni {v} {m}".strip()
+    commands.add(cmd)
+
+# write to file...
+Keyinchalik har bir qatorni semantik tozalash: bosh harf, tinish belgisi, uniq constraint enforced.
+
+Nota Bene: Celebrity persona / voice fayllarini foydalanishda qonuniy va etik ruxsatni tekshirish shart.
+
+11) Docker & docker-compose (local run)
+docker-compose.yml misol:
+
+yaml
+Copy code
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - redis
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    env_file: .env
+  redis:
+    image: redis:7
+Backend Dockerfile should install Python deps and run uvicorn app.main:app --host 0.0.0.0 --port 8000.
+
+12) CI/CD (GitHub Actions) — pipeline idea
+.github/workflows/ci.yml:
+
+on: push
+
+jobs:
+
+lint-frontend (node)
+
+lint-backend (flake8)
+
+test-backend (pytest)
+
+build-docker (docker build)
+
+publish (DockerHub/GHCR) if tag
+
+Also include security scans: Trivy for images, Snyk / npm audit, Bandit for Python.
+
+13) Security checklist (katta va aniq)
+.env to‘liq .gitignore qilingan.
+
+API Keys stored in Vault / cloud secrets.
+
+TLS everywhere (Nginx + certbot).
+
+Rate limiting per IP + per-user.
+
+CORS allowlist.
+
+Helmet-like headers for frontend (via Nginx).
+
+SAST: eslint, flake8, bandit, sonarqube.
+
+DAST: OWASP ZAP scan weekly.
+
+DB encryption at rest (prod), field-level encryption for PII.
+
+Audit logs with tamper-evident (hash chain).
+
+Sandbox code execution: enforce CPU/memory/time limits, disable network egress.
+
+Legal: celebrity persona usage must have licenses. Provide disclaimer and opt-in.
+
+Commands to run basic scans:
+
+bash
+Copy code
+# Trivy scan:
+trivy fs ./backend
+# Bandit:
+bandit -r ./backend
+# OWASP ZAP (CI):
+# run zap baseline scan against staging URL
+14) Monitoring & observability
+Export Prometheus metrics from backend (uvicorn metrics, job queue length).
+
+Grafana dashboards: latency, error rate, queue lag, cost per request.
+
+Logging: structured JSON (winston/python logging with JSON), push to Loki/Elasticsearch.
+
+Tracing: OpenTelemetry, Jaeger.
+
+15) Testing & Acceptance Criteria
+Unit tests (pytest) coverage target 80%+ for backend core logic.
+
+Integration tests: WebSocket connect → send command → receive response (text+audio+animation).
+
+E2E: Frontend runs (next dev) → connect to local backend via WS → audio plays and 3D anim triggers.
+
+Security tests: SAST + DAST pass baseline.
+
+Performance: support 100 concurrent WS connections (load test with locust).
+
+16) Deployment checklist (prod)
+Create prod infra (VPC, subnets, LB).
+
+Deploy backend in k8s with HPA.
+
+Use managed Postgres (if scale) otherwise encrypted RDS/CloudSQL.
+
+Expose via Nginx ingress with TLS.
+
+Setup certbot or managed certs.
+
+Configure monitoring & logging.
+
+Configure backups & restore, DR plan.
+
+17) Legal & privacy notes (muhim)
+Celebrity voice/persona: check copyright, voice rights. Provide opt-in toggle and disclaimers.
+
+Data retention policy: user can request deletion; implement GDPR-like endpoints (export/delete).
+
+Secure storage of voice recordings; encrypt in transit and at rest.
+
+18) Qo‘shimcha: lab-sync testing va tuning
+Use Rhubarb yoki Montreal Forced Aligner to get phoneme timings.
+
+If using cloud TTS that provides visemes, use them directly.
+
+For local approximation: use audio amplitude envelope to drive mouth_open value and map vowels to visemes.
+
+19) Qo‘llanma: qanday ishni boshlab, qadamlar
+Repo klonla.
+
+.env ni .env.example ga mos qilib to‘ldir (OPENAI_API_KEY, S3 creds).
+
+Backend virtualenv yarat, pip install -r requirements.txt.
+
+Frontend npm install.
+
+Docker compose bilan docker-compose up --build sinov.
+
+Local test: uvicorn app.main:app --reload, npm run dev.
+
+Run sample WS command and check response.
+
+Run TTS sample (/api/tts) va tekshir.
+
+Generate 40k commands scriptni ishga tushir, DB ga import qil.
+
+Run load test.
+
+20) 40,000 buyruqni sifatli yaratish — implementation detail
+Use generator script with templates + real-world action lists.
+
+Post-process results: grammar check (language_tool_python) for Uzbek? (agar yo‘q bo‘lsa, manual hizalama).
+
+Deduplicate and human-audit sample 100–200 lines to ensure quality.
+
+Store in DB with category tags and metadata (difficulty, estimated_cost, cooldown).
+
+21) Demo & release — user-facing
+Demo site URL: show 3D scene, “Talk to Jarvis” button, persona picker, Download App button.
+
+Provide inline privacy & license info near persona usage.
+
+Provide “Safe mode” toggle — disallow dangerous system-level commands.
+
+22) Prompt-ready snippet (oxiri) — Gemini/ChatGPT ga berish uchun eng aniq buyruq
+graphql
+Copy code
+Iltimos, yuqoridagi barcha talablar asosida to‘liq repo generatsiya qil: frontend (Next.js + Splin
+⭐ GEMINI GA BERADIGAN SUPER-PROMPT (ENG TO‘LIQ, ENG BATAFSIL)
+— Hech narsani qisqartirma.
+— Hammasini tushunadi.
+— 100% ishlaydigan kodlar yaratadi.
+✅ GEMINI SUPER PROMPT BOSHLANISHI:
+
+Gemini, menga to‘liq ishlaydigan JARVIS ga o‘xshash intellektual tizim yaratib bering. Tizim quyidagi talablarga to‘liq mos bo‘lishi shart:
+
+1️⃣ ILOVA TURI VA UMUMIY MAQSAD
+
+Men uchun bitta katta ekotizim yarat:
+
+A) Web App (Next.js + 3D + API + Speak + Command Center)
+B) Desktop App (C# .NET 8, WinUI3 yoki MAUI)
+C) Backend Server (Python FastAPI)
+D) Xavfsizlik, Database, Auth, Token, Rate Limit
+E) ChatGPT + Gemini + Local AI integratsiyasi
+F) Spline 3D modellar bilan FULL animatsiya
+G) Ovozli buyruqlar: Uzbek & English TTS + STT
+H) Komandalar tizimi: 40 000+ ni qo‘llab-quvvatlaydigan modulli AI
+
+Bu tizim to‘liq ishlasin, xatolarsiz, real serverga qo‘yishga tayyor bo‘lsin.
+
+2️⃣ WEB SAYT TALABLARI (Next.js)
+1. Dizayn talablari
+
+Orqa fon — Spline import:
+
+import Spline from '@splinetool/react-spline/next';
+
+
+Asosiy sahifa markazida 3D Jarvis robot modeli bo‘lsin.
+
+Fon yumshoq neon animatsiyalar.
+
+Minimalist UX, AI based UI.
+
+2. Sahifalar:
+
+/ — Home + 3D robot + Speak
+
+/assistant — AI chat
+
+/download — Desktop App yuklab olish
+
+/about-jarvis — Jarvis haqida info
+
+/founder — Mening ma’lumotlarim:
+
+Ism: Koma (Nuraliev Javohir)
+
+IT Academy’da o‘qigan
+
+Fullstack / AI developer
+
+Portfolio havolalari bo‘lsin.
+
+3. Speak System
+
+Asosiy tugma:
+
+“Speak to Jarvis”
+
+Mikrofon orqali buyruq qabul qiladi.
+
+Backendga WebSocket orqali yuboradi.
+
+4. 3D Motion
+
+Spline triggerlari:
+
+bosh irg‘ash
+
+ko‘z miltillash
+
+ovozga mos lab animatsiyasi
+
+3️⃣ BACKEND (Python FastAPI) TALABLARI
+1. AI komanda tizimi
+
+Backendda ikki qism bo‘ladi:
+
+A) Mahalliy IntentParser
+
+100 eng ko‘p ishlatiladigan buyruqlarni o‘zi hal qiladi
+
+Juda tez ishlaydi
+
+B) AI Based Interpreter
+
+Murakkab buyruqlarni aniqlash uchun:
+
+OpenAI ChatGPT 4.1 (tool calling)
+
+Google Gemini 2.0 Flash Thinking
+
+Optional: Llama 3.1 70B local
+
+2. Ovoz tizimi
+
+STT: Google Speech-to-Text yoki Whisper
+
+TTS: OpenAI TTS HD, ElevenLabs atau Google TTS
+
+Backend har gal quyidagilarni qaytarsin:
+
+{
+  "text": "Assalomu alaykum, Koma!",
+  "audio_base64": "...",
+  "animation_triggers": ["head_nod", "blink"]
+}
+
+3. WebSocket kanal
+
+Frontendga real-time javob yuboradi.
+
+4. Xavfsizlik
+
+JWT auth
+
+Refresh token
+
+Rate limit (per IP, per user)
+
+Role-based permission
+
+SQL Injectiondan himoya
+
+CORS konfiguratsiyasi
+
+4️⃣ DATABASE TALABLARI
+SQLite → Dev
+PostgreSQL → Production
+
+Jadvallar:
+
+users
+
+voice_logs
+
+ai_history
+
+settings
+
+installed_commands
+
+desktop_license_keys
+
+5️⃣ DESKTOP APP (C#)
+Asosiy texnologiya:
+
+.NET 8
+
+MAUI yoki WinUI3 (Electron emas)
+
+Funktsiyalar:
+
+Jarvis bilan gaplashish
+
+WebSocket orqali backendga ulanadi
+
+Mikrofon va ovoz tizimi
+
+3D render (WebView orqali Spline)
+
+Temir odam Jarvis UI efekti
+
+Yuklab olish fayllari:
+
+.exe
+
+.msi
+
+Autoupdate tizimi
+
+6️⃣ 40 000+ BUYRUQLI KOMANDA TIZIMI
+
+Gemini o‘zi avtomatik generatsiya qilsin:
+
+System commands
+
+PC controls
+
+File operations
+
+Math
+
+Weather
+
+Developer tools
+
+IT commands
+
+Windows settings
+
+Music controls
+
+Web search
+
+Fun AI features
+
+ChatGPT bridging
+
+Shell commands
+
+Home automation (virtual)
+
+7️⃣ CHATGPT INTEGRATSIYASI
+
+Foydalanuvchi: “ChatGPT rejimiga o‘t”
+
+Jarvis avtomatik ChatGPT 4.1 ga ulanadi.
+
+WebSocket orqali:
+
+/bridge/chatgpt
+
+8️⃣ OVOZLI QURILMA INTEGRATSIYASI
+
+Gemini quyidagilarni yaratishi kerak:
+
+voice_engine.py
+
+audio_router.py
+
+noise_filter.py
+
+realtime_tts_stream.py
+
+Ovoz sifatini:
+
+48 kHz
+
+Stereo
+
+Zero-delay
+
+9️⃣ 3D MODELLAR
+
+Spline’dan:
+
+Jarvis bosh modeli
+
+Jarvis ko‘krak modeli
+
+Neon AI sfera
+
+Interaktiv panel UI
+
+Har biri Next.js ga optimallashtirilgan bo‘lsin.
+
+🔟 TO‘LIQ INSTALLATION INSTRUKSIYASI
+
+Gemini quyidagilarni tayyorlab bersin:
+
+1. Web
+npm install
+npm run dev
+
+2. Backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+3. Desktop
+
+.NET project run komandalari
+
+1️⃣1️⃣ LOYIHANI YUKLAB OLISH
+
+Saytda bo‘lsin:
+
+Web App Live
+
+Desktop App Download
+
+Source Code Download (zip)
+
+🔥 UMUMIY TALAB
+
+Gemini, bularning hammasini to‘liq, xatosiz, yakuniy holda tayyorlo:
+
+to‘liq kodlar
+
+to‘liq fayl strukturalari
+
+to‘liq backend
+
+to‘liq frontend
+
+to‘liq 3D integratsiya
+
+to‘liq ma’lumotlar bazasi
+
+to‘liq C# app
+
+to‘liq API hujjati
+
+to‘liq xavfsizlik tizimi
+
+Hech narsani qisqartirma.
+Hech narsa tushib qolmasin.
+Barcha kodlar to‘liq ishlaydigan bo‘lsin.✅ GEMINI uchun SUPER-BATAFSIL PROMPT (full detailed)
+
+Gemini, menga quyidagi talablar asosida to‘liq ishlaydigan professional darajadagi loyiha yaratib ber:
+
+1) LOYIHA TURI
+
+Bu katta, jiddiy AI Assistant platforma bo‘ladi.
+
+Unda veb-sayt + mobil ilova + desktop app bo‘ladi.
+
+Backend C# (.NET 8) bo‘ladi.
+
+Frontend Next.js 14 + React + Tailwind bo‘ladi.
+
+3D animatsiya uchun Spline 3D ishlatiladi.
+
+2) ASOSIY FUNKSIYALAR
+📌 1. Jarvis ovozli assistent
+
+Ovoz bilan gaplashadi (TTS + STT).
+
+O‘zbek tilida ishlaydi.
+
+"Wake word": “Koma, ishga tush”.
+
+Gapirayotganda 3D model lablari harakatlanadi.
+
+Ovozli buyruqlarni tanib:
+
+tizimni boshqaradi,
+
+fayllarni ochadi,
+
+internetdan izlaydi,
+
+ChatGPT yoki Gemini APIga murojaat qiladi,
+
+animatsiyalarni ishga tushiradi.
+
+📌 2. ChatGPT + Gemini ulanishi
+
+Ilovada AI tanlash bo‘ladi:
+
+ChatGPT API (model gpt-4.1, gpt-5.1)
+
+Gemini API
+
+Backend foydalanuvchi tanlagan AIga so‘rov yuboradi.
+
+Javob audio + matn ko‘rinishida qaytadi.
+
+Shuningdek:
+
+mahsus “tool calling”
+
+system prompt
+
+kontekst saqlash
+
+uzun tarix saqlash
+
+Hammasi to‘liq ishlaydi.
+
+📌 3. 3D Spline integratsiyasi
+
+Asosiy sahifada quyidagi kod bo‘ladi:
+
+import Spline from '@splinetool/react-spline/next';
+
+export default function Home() {
+  return (
+    <main className="w-full h-screen">
+      <Spline scene="https://prod.spline.design/ROBOT_SCENE_URL/scene.splinecode" />
+    </main>
+  );
+}
+
+
+Talablar:
+
+3D robot Jarvis ko‘rinishida bo‘lsin.
+
+Gapirganda:
+
+bosh harakatlanadi,
+
+lab sinxron bo‘ladi,
+
+ko‘zlar yonadi,
+
+qo‘llar animatsiya qilinadi.
+
+3D fon ham Spline’dan bo‘lsin (galaxy, futuristic laboratory).
+
+3) SAYT DIZAYNI TALABLARI (IDEAL, PREMIUM)
+🎨 UI/UX talablari:
+
+Minimalist, premium, neon-futuristic dizayn.
+
+Dark mode default.
+
+To‘liq professional landing page:
+
+Jarvis haqidagi bo‘lim
+
+Meni asoschi sifatida tanishtirish
+
+Ism: Nuraliev Javohir (Koma)
+
+IT sohasida o‘qigan joy: ITech Academy
+
+Kasb: Universal Web Developer
+
+Ilovani yuklab olish bo‘limi:
+
+Windows .exe
+
+Android APK
+
+iOS .ipa (TestFlight)
+
+Screenshotlar
+
+Video demo
+
+4) BACKEND TALABLARI
+
+Backend C# .NET 8 Web API bo‘ladi.
+
+Backend funksiyalari:
+
+Voice recognition (Whisper / Gemini STT)
+
+Voice generation (ChatGPT TTS / Gemini TTS)
+
+Command parser (AI + local)
+
+System command executor:
+
+file open
+
+search
+
+music play
+
+apps open
+
+AI router (ChatGPT/Gemini tanlash)
+
+Foydalanuvchi parollarini shifrlash (Argon2id)
+
+5) DATABASE TALABLARI
+
+PostgreSQL ishlatiladi.
+
+Saqlanadiganlar:
+
+foydalanuvchi akkauntlari
+
+sesiyalar
+
+AI chat tarixi
+
+audio loglar
+
+buyruqlar ro‘yxati
+
+tizim sozlamalari
+
+Xavfsizlik:
+
+JWT Auth
+
+Refresh token
+
+IP-rate limit
+
+Admin dashboard (Next.js admin panel)
+
+SQL injectiondan to‘liq himoya
+
+Encryption at rest
+
+6) MOBILE + DESKTOP APP TALABLARI
+🚀 Mobil ilova (React Native)
+
+Jarvis mobilda ham gapiradi.
+
+Uzoqdan boshqarish mavjud.
+
+💻 Desktop app (Electron + C# connector)
+
+Next.js frontendni Electronga o‘raydi.
+
+Backend bilan WebSocket orqali gaplashadi.
+
+7) KIRISH SAHIFASI
+
+Animatsiyali 3D robot
+
+“Start Conversation”
+
+Tizimga kirish (Email + Parol)
+
+OAuth (Google, GitHub)
+
+8) SPEECH SYSTEM TALABLARI
+Input:
+
+Microphone → WebRTC → Backend → AI
+
+Output:
+
+AI matni → TTS → audio(stream)
+
+3D modelga animationTrigger:
+
+mouth_open
+
+blink
+
+head_move
+
+smile
+
+9) KOMANDALAR TIZIMI
+
+Misollar:
+
+Buyruq	Amal
+“Koma, musiqa qo‘y”	System music player
+“Koma, Chrome och”	Application open
+“Koma, kod yoz”	AI coding mode
+“Koma, mening loyihamni boshqar”	Project assistant
+“Koma, qaysi fayllar bor?”	File explorer
+10) GEMINI NIMA QILISHI KERAK
+
+Gemini, sen quyidagilarni bajarishing shart:
+
+1. To‘liq ishlaydigan loyiha strukturasini yarat
+2. Har bir qism uchun ishlaydigan to‘liq kod yoz:
+
+Next.js front-end
+
+C# .NET 8 backend
+
+WebSocket tizimi
+
+AI router kodlari
+
+3D animatsiya triggerlari
+
+Mobil ilova kodlari
+
+Desktop app kodi
+
+PostgreSQL migrationlari
+
+API endpointlari
+
+TTS/STT integratsiyasi
+
+3. Barcha kodlar hatosiz, run bo‘ladigan, professional bo‘lsin
+4. Har bir qismni batafsil tushuntir
+5. Full project folder structure ber
+6. Barcha API kalitlari uchun environment variables yarat
+7. Loyiha qanday ishga tushirilishini to‘liq yozib ber
+8. Hech narsani soddalashtirmasdan, professional darajada yoz
+🟦 PROMPT yakuni:
+

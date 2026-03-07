@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS PRO | Future Interface</title>
+    <style>
+        :root {
+            --primary: #00f3ff;
+            --secondary: #bc13fe;
+            --bg: #050505;
+            --glass: rgba(10, 25, 47, 0.7);
+            --text: #e6f1ff;
+        }
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #112240 0%, #000 100%);
+        }
+
+        /* 3D Background Grid */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(transparent 95%, var(--primary) 50%),
+                linear-gradient(90deg, transparent 95%, var(--primary) 50%);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            transform: perspective(500px) rotateX(60deg);
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--primary);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--primary);
+        }
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 25px;
+            border-radius: 0;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+        .nav-btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary);
+        }
+        
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 3D ARC REACTOR */
+        .jarvis-interface {
+            background: var(--glass);
+            border: 1px solid var(--primary);
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .arc-reactor {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            position: relative;
+            background: radial-gradient(circle, #fff 0%, var(--primary) 30%, transparent 70%);
+            box-shadow: 0 0 50px var(--primary), inset 0 0 50px var(--primary);
+            border: 2px solid rgba(255,255,255,0.5);
+            animation: reactorPulse 2s infinite alternate;
+        }
+        .arc-ring {
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 5px dashed var(--primary);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+        .arc-ring-2 {
+            position: absolute;
+            top: -20px; left: -20px; right: -20px; bottom: -20px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: spin 5s linear infinite reverse;
+        }
+
+        @keyframes reactorPulse {
+            0% { box-shadow: 0 0 40px var(--primary), inset 0 0 40px var(--primary); opacity: 0.8; }
+            100% { box-shadow: 0 0 80px var(--primary), inset 0 0 80px var(--primary); opacity: 1; }
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .status-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .mic-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--primary);
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: 0.3s;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .mic-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: #000;
+        }
+        .mic-btn.listening {
+            background: #ff5555;
+            border-color: #ff5555;
+            color: white;
+            box-shadow: 0 0 30px #ff5555;
+            animation: pulse-red 1s infinite;
+        }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .module-card {
+            background: rgba(17, 34, 64, 0.8);
+            padding: 20px;
+            border: 1px solid #233554;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .module-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .module-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #233554;
+            padding-bottom: 10px;
+        }
+        
+        /* Hacker Mode Terminal */
+        .terminal {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin-top: 10px;
+            border: 1px solid #333;
+            box-shadow: inset 0 0 10px #000;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a192f; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <header>
+        <div class="logo">JARVIS <span style="color:white">PRO</span></div>
+        <div>
+            <button class="nav-btn">⚙️ SYSTEM</button>
+            <a href="/download" class="nav-btn" style="background: var(--primary); color: #000;">⬇️ INSTALL CORE</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 1. Web Jarvis & UzAI Interface -->
+        <div class="jarvis-interface">
+            <div class="arc-reactor">
+                <div class="arc-ring"></div>
+                <div class="arc-ring-2"></div>
+            </div>
+            <h2 id="jarvis-response">SYSTEM ONLINE. WAITING FOR INPUT...</h2>
+            <p class="status-text">"Jarvis, activate Protocol 1" or "Scan Network"</p>
+            <button class="mic-btn" id="micBtn" onclick="toggleVoice()">🎤</button>
+        </div>
+
+        <div class="modules-grid">
+            <!-- 2. Hacker Assistant -->
+            <div class="module-card">
+                <div class="module-title"> HACKER MODE (REAL-TIME)</div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <button class="nav-btn" onclick="runScan()">SCAN NETWORK</button>
+                    <span style="color: #ff5555; font-weight: bold;">ROOT ACCESS: GRANTED</span>
+                </div>
+                <div class="terminal" id="hacker-terminal">
+                    root@jarvis:~# initializing modules...<br>
+                    root@jarvis:~# waiting for target...
+                </div>
+            </div>
+
+            <!-- 3. Smart Desktop -->
+            <div class="module-card">
+                <div class="module-title">🖥 SYSTEM CONTROL</div>
+                <div class="data-row">
+                    <span>CPU LOAD:</span>
+                    <span id="cpu-val" style="color: var(--primary)">0%</span>
+                </div>
+                <div class="data-row">
+                    <span>RAM USAGE:</span>
+                    <span id="ram-val" style="color: var(--secondary)">0%</span>
+                </div>
+                <br>
+                <button class="nav-btn" style="width: 100%; margin-bottom: 5px;">OPEN TERMINAL</button>
+                <button class="nav-btn" style="width: 100%; border-color: #ff5555; color: #ff5555;">SHUTDOWN SYSTEM</button>
+            </div>
+
+            <!-- 5. Game Jarvis -->
+            <div class="module-card">
+                <div class="module-title">🎮 GAME OVERLAY</div>
+                <p style="color: #888;">Status: <span style="color: #0f0">IDLE</span></p>
+                <div style="background: rgba(0,0,0,0.5); padding: 10px; border-left: 3px solid var(--primary);">
+                    <i>AI: "Focus on the objective. Enemy spotted."</i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Voice Recognition Setup
+        const micBtn = document.getElementById('micBtn');
+        const responseText = document.getElementById('jarvis-response');
+        let isListening = false;
+        let recognition;
+
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'uz-UZ'; // O'zbek tili
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.classList.add('listening');
+                responseText.innerText = "LISTENING...";
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove('listening');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                responseText.innerText = "INPUT: " + transcript;
+                sendCommandToBackend(transcript);
+            };
+        } else {
+            responseText.innerText = "VOICE MODULE NOT DETECTED";
+        }
+
+        function toggleVoice() {
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // Backend Communication
+        async function sendCommandToBackend(command) {
+            try {
+                const response = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ command: command })
+                });
+                const data = await response.json();
+                responseText.innerText = "JARVIS: " + data.response;
+                
+                // Rasm mavjud bo'lsa ko'rsatish
+                if (data.image_url) {
+                    const existingImg = document.querySelector('.jarvis-interface img');
+                    if (existingImg) existingImg.remove();
+
+                    const img = document.createElement('img');
+                    img.src = data.image_url;
+                    img.style.maxWidth = '100%';
+                    img.style.border = '1px solid var(--primary)';
+                    img.style.marginTop = '20px';
+                    img.style.boxShadow = '0 0 20px rgba(0, 243, 255, 0.3)';
+                    document.querySelector('.jarvis-interface').appendChild(img);
+                }
+
+                // Text to Speech (Simple Browser API)
+                const speech = new SpeechSynthesisUtterance(data.response);
+                window.speechSynthesis.speak(speech);
+
+            } catch (error) {
+                console.error('Error:', error);
+                responseText.innerText = "CONNECTION LOST.";
+            }
+        }
+
+        // Hacker Mode Simulation
+        async function runScan() {
+            const terminal = document.getElementById('hacker-terminal');
+            terminal.innerHTML += "<span style='color:yellow'>[!] INITIATING DEEP SCAN...</span><br>";
+            
+            try {
+                const response = await fetch('/api/hacker/info');
+                const data = await response.json();
+                
+                // Update System Stats
+                document.getElementById('cpu-val').innerText = data.resources.cpu_percent + "%";
+                document.getElementById('ram-val').innerText = data.resources.ram_percent + "%";
+
+                setTimeout(() => {
+                    terminal.innerHTML += `> SYSTEM: ${data.system.system} ${data.system.release}<br>`;
+                    terminal.innerHTML += `> NODE: ${data.system.node}<br>`;
+                    
+                    data.connections.forEach(conn => {
+                        terminal.innerHTML += `> CONN: ${conn}<br>`;
+                    });
+
+                    terminal.innerHTML += "<span style='color:#0f0'>[+] SCAN COMPLETE. SYSTEM SECURE.</span><br>";
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, 1000);
+            } catch (e) {
+                terminal.innerHTML += "<span style='color:red'>[!] SCAN FAILED. CHECK ROOT PRIVILEGES.</span><br>";
+            }
+        }
+    </script>
+</body>
+</html>

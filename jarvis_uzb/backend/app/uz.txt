@@ -1,0 +1,6 @@
+greeting=Salom, men Jarvisman. Buyruq bering!
+time=Hozirgi vaqt
+date=Bugungi sana
+open=Ochilyapti
+exit=Xizmat tugatildi. Xayr!
+unknown=Kechirasiz, tushunmadim.

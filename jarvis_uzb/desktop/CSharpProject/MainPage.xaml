@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JarvisDesktop.MainPage"
+             BackgroundColor="#0a192f"
+             Title="Jarvis AI Assistant">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+            BackgroundColor="#0a192f">
+        <!-- Header -->
+        <Grid Grid.Row="0"
+                BackgroundColor="#1a2332"
+                Padding="20,10">
+            <Label Text="JARVIS AI ASSISTANT"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1"
+                Padding="20">
+            <Grid RowDefinitions="*,Auto"
+                    ColumnDefinitions="*,Auto">
+                <!-- 3D Jarvis Model Area -->
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="#000000"
+                        Stroke="#4a90e2"
+                        StrokeThickness="2"
+                        Margin="0,0,0,20"
+                        HeightRequest="400">
+                    <WebView x:Name="JarvisWebView"
+                             Source="http://localhost:5000"
+                             BackgroundColor="Transparent"/>
+                </Border>
+
+                <!-- Chat Area -->
+                <ScrollView Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="0,0,10,0">
+                    <StackLayout x:Name="ChatStack"
+                            Spacing="10"/>
+                </ScrollView>
+
+                <!-- Control Panel -->
+                <StackLayout Grid.Row="1"
+                        Grid.Column="1"
+                        Spacing="15"
+                        WidthRequest="200">
+                    <!-- Voice Control -->
+                    <Button x:Name="VoiceButton"
+                            Text="🎤 Speak to Jarvis"
+                            BackgroundColor="#4a90e2"
+                            TextColor="White"
+                            FontSize="16"
+                            CornerRadius="10"
+                            HeightRequest="50"
+                            Clicked="OnVoiceButtonClicked"/>
+
+                    <!-- Status -->
+                    <Label x:Name="StatusLabel"
+                           Text="Ready"
+                           TextColor="#4ade80"
+                           FontSize="14"
+                           HorizontalTextAlignment="Center"/>
+
+                    <!-- Animation Controls -->
+                    <Label Text="Animation Triggers"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"/>
+                    <Button Text="👋 Wave"
+                            BackgroundColor="#7c3aed"
+                            TextColor="White"
+                            Clicked="OnAnimationClicked"
+                            CommandParameter="wave"/>
+                    <Button Text="😊 Smile"
+                            BackgroundColor="#7c3aed"
+                            TextColor="White"
+                            Clicked="OnAnimationClicked"
+                            CommandParameter="smile"/>
+                    <Button Text="🤔 Think"
+                            BackgroundColor="#7c3aed"
+                            TextColor="White"
+                            Clicked="OnAnimationClicked"
+                            CommandParameter="think"/>
+
+                    <!-- Settings -->
+                    <Button Text="⚙️ Settings"
+                            BackgroundColor="#374151"
+                            TextColor="White"
+                            Clicked="OnSettingsClicked"/>
+                </StackLayout>
+            </Grid>
+        </Grid>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2"
+                BackgroundColor="#1a2332"
+                Padding="20,10">
+            <Label Text="Created by Koma @ iTech"
+                   TextColor="#94a3b8"
+                   FontSize="12"
+                   HorizontalOptions="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>

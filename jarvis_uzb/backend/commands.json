@@ -1,0 +1,211 @@
+{
+  "intents": [
+    {
+      "intent": "get_time",
+      "category": "Vaqt va sana",
+      "patterns": [
+        "soat necha?",
+        "hozir soat nechi?",
+        "vaqtni ko'rsat",
+        "qancha vaqt bo'ldi?",
+        "soatni och",
+        "soatni korsat",
+        "soat nechchi",
+        "hozir nechchi soat",
+        "vaqtni ayt",
+        "hozirgi vaqtni ko'rsat"
+      ],
+      "action": "get_time",
+      "responses": [
+        "Hozir soat {time}."
+      ]
+    },
+    {
+      "intent": "get_date",
+      "category": "Vaqt va sana",
+      "patterns": [
+        "bugun sana necha",
+        "bugun kun",
+        "sana necha",
+        "bugun nechanchi sana",
+        "hozirgi sana",
+        "kun va oyni ayt"
+      ],
+      "action": "get_date",
+      "responses": [
+        "Bugun {date}."
+      ]
+    },
+    {
+      "intent": "open_calculator",
+      "category": "Hisoblash va Kalkulyator",
+      "patterns": [
+        "hisobla",
+        "kalkulyatorni och",
+        "matematik hisoblash",
+        "kalkulyatorni ishga tushur",
+        "hisoblash dasturini ishga tushur",
+        "hisoblagichni ishga tushur"
+      ],
+      "action": "open_calculator",
+      "responses": [
+        "Kalkulyator ochilmoqda..."
+      ]
+    },
+    {
+        "intent": "search",
+        "category": "Internet va Qidiruv",
+        "patterns": [
+            "internetdan qidir {query}",
+            "google-da izla {query}",
+            "ma'lumot top {query}",
+            "video qidir {query}",
+            "youtube'da qidir {query}"
+        ],
+        "action": "search_web",
+        "responses": [
+            "{query} uchun internetdan qidirilmoqda..."
+        ]
+    },
+    {
+        "intent": "open_website",
+        "category": "Internet va Qidiruv",
+        "patterns": [
+            "saytga kirish {url}",
+            "veb-sahifani och {url}",
+            "brauzerni ishga tushir",
+            "google och",
+            "youtube och"
+        ],
+        "action": "open_website",
+        "responses": [
+            "{url} sayti ochilmoqda..."
+        ]
+    },
+    {
+        "intent": "play_music",
+        "category": "Multimedia",
+        "patterns": [
+            "musiqa och",
+            "qo'shiq tinglash",
+            "pleyni ishga tushir",
+            "musiqa qo'y {song}",
+            "musiqani ishga tushir {song}"
+        ],
+        "action": "play_music",
+        "responses": [
+            "{song} qo'shig'i ijro etilmoqda."
+        ]
+    },
+    {
+        "intent": "shutdown",
+        "category": "Tizim va Nazorat",
+        "patterns": ["kompyuterni o'chir", "sistemani yopish", "shut down qil", "kompyuterni yop", "hozir o'chir"],
+        "action": "system_shutdown",
+        "responses": ["Kompyuterni o'chirish buyrug'i qabul qilindi. Xavfsizlik uchun bu amal tasdiqlanmadi."]
+    },
+    {
+        "intent": "restart",
+        "category": "Tizim va Nazorat",
+        "patterns": ["restart qil", "qayta ishga tushir", "yangilash sistemani", "kompyuterni qayta yukla", "tizimni restart qil"],
+        "action": "system_restart",
+        "responses": ["Kompyuterni qayta yuklash buyrug'i qabul qilindi. Xavfsizlik uchun bu amal tasdiqlanmadi."]
+    },
+    {
+      "intent": "set_volume",
+      "category": "Ovoz boshqaruvi",
+      "patterns": [
+        "ovozni {level} ga qo'y",
+        "musiqa balandligini {level} ga o'rnat",
+        "tovushni {level} ga qo'y"
+      ],
+      "action": "set_volume",
+      "responses": [
+        "Ovoz balandligi {level}% ga o'rnatildi."
+      ]
+    },
+    {
+      "intent": "increase_volume",
+      "category": "Ovoz boshqaruvi",
+      "patterns": [
+        "ovozni oshir",
+        "musiqani ko'tar",
+        "tovushni ko'tar",
+        "ovoz balandligini oshir"
+      ],
+      "action": "increase_volume",
+      "responses": [
+        "Ovoz balandligi oshirildi."
+      ]
+    },
+    {
+      "intent": "decrease_volume",
+      "category": "Ovoz boshqaruvi",
+      "patterns": [
+        "ovozni tushir",
+        "musiqani kamaytir",
+        "tovushni pasaytir",
+        "ovoz balandligini kamaytir"
+      ],
+      "action": "decrease_volume",
+      "responses": [
+        "Ovoz balandligi pasaytirildi."
+      ]
+    },
+    {
+      "intent": "set_brightness",
+      "category": "Yorug‘lik (Brightness)",
+      "patterns": [
+        "yorug'likni {level} ga qo'y",
+        "ekran yarkostini {level} ga o'rnat",
+        "yorug'likni {level} ga qo'y"
+      ],
+      "action": "set_brightness",
+      "responses": [
+        "Ekran yorug'ligi {level}% ga o'rnatildi."
+      ]
+    },
+    {
+        "intent": "increase_brightness",
+        "category": "Yorug‘lik (Brightness)",
+        "patterns": [
+            "yorug'likni oshir",
+            "ekranni yorqinlashtir",
+            "yarkostni ko'tar"
+        ],
+        "action": "increase_brightness",
+        "responses": ["Ekran yorug'ligi oshirildi."]
+    },
+    {
+        "intent": "decrease_brightness",
+        "category": "Yorug‘lik (Brightness)",
+        "patterns": [
+            "yorug'likni tushir",
+            "ekranni qoraytir",
+            "yarkostni pasaytir"
+        ],
+        "action": "decrease_brightness",
+        "responses": ["Ekran yorug'ligi pasaytirildi."]
+    },
+    {
+        "intent": "take_screenshot",
+        "category": "Skrinshot",
+        "patterns": [
+            "skrinshot ol",
+            "rasmga ol",
+            "ekran suratini ol",
+            "screenshot qil",
+            "ekranni saqlab ol"
+        ],
+        "action": "take_screenshot",
+        "responses": ["Skrinshot olindi."]
+    },
+    {
+        "intent": "unknown",
+        "category": "Fallback",
+        "patterns": [],
+        "action": "fallback",
+        "responses": ["Kechirasiz, men bu buyruqni tushunmadim. Iltimos, boshqacha tarzda ayting."]
+    }
+  ]
+}

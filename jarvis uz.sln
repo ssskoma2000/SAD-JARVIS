@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jarvis_uzb", "jarvis_uzb", "{2DCE8994-EF46-7B76-EDAF-039D0663FC32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "desktop", "desktop", "{265F7ECD-A7C5-3FD0-CF3D-9465464F261C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarvisDesktop", "jarvis_uzb\desktop\CSharpProject\JarvisDesktop.csproj", "{A8655884-352B-7CE4-EAD5-0B3D24313497}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8655884-352B-7CE4-EAD5-0B3D24313497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8655884-352B-7CE4-EAD5-0B3D24313497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8655884-352B-7CE4-EAD5-0B3D24313497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8655884-352B-7CE4-EAD5-0B3D24313497}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{265F7ECD-A7C5-3FD0-CF3D-9465464F261C} = {2DCE8994-EF46-7B76-EDAF-039D0663FC32}
+		{A8655884-352B-7CE4-EAD5-0B3D24313497} = {265F7ECD-A7C5-3FD0-CF3D-9465464F261C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {208024CE-6E5E-4F4D-8DF6-F91C9EEC1D71}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JARVIS 3D</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: radial-gradient(ellipse at top, #0b1b2b, #000); color: #cde6ff; }
+    #container { display: grid; grid-template-columns: 2fr 1fr; height: 100vh; }
+    #three { position: relative; }
+    #ui { padding: 12px; background: rgba(10, 20, 30, 0.6); backdrop-filter: blur(6px); border-left: 1px solid #193a57; }
+    .status { font-size: 12px; color: #9bc2e6; margin-bottom: 8px; }
+    .btn { background: #1e90ff; color: white; border: 0; padding: 10px 14px; border-radius: 6px; cursor: pointer; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .chat { height: calc(100vh - 260px); overflow-y: auto; background: rgba(0,0,0,.25); border: 1px solid #163550; padding: 8px; border-radius: 8px; }
+    .msg { margin: 6px 0; }
+    .me { color: #c1ffd7; }
+    .ai { color: #e6f1ff; }
+    audio { width: 100%; margin-top: 8px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+<div id="container">
+  <div id="three"></div>
+  <div id="ui">
+    <div class="status" id="status">Yuklanmoqda...</div>
+    <div id="auth" style="background:rgba(0,0,0,.2);padding:8px;border:1px solid #163550;border-radius:8px;margin-bottom:8px;">
+      <div style="font-weight:600;margin-bottom:6px;">Administrator</div>
+      <div id="auth-state" class="status">Holat: noma'lum</div>
+      <div style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+        <input id="admin-pass" type="password" placeholder="Admin parol" style="flex:1;padding:8px;border-radius:6px;border:1px solid #1b3c5b;background:#061625;color:#cde6ff" />
+        <button id="btn-register" class="btn">Ro'yxatdan o'tkazish</button>
+        <button id="btn-login" class="btn">Kirish</button>
+      </div>
+    </div>
+    <div class="chat" id="chat"></div>
+    <input id="text" placeholder="Matn kiriting" style="width:100%;padding:10px;margin-top:8px;border-radius:6px;border:1px solid #1b3c5b;background:#061625;color:#cde6ff" />
+    <div style="display:flex; gap:8px; margin-top:8px;">
+      <button id="send" class="btn">So'rov yuborish</button>
+      <button id="record" class="btn">🎙️ Yozish</button>
+    </div>
+    <audio id="player" controls></audio>
+    <div id="subtitle" style="margin-top:6px; color:#9bd1ff"></div>
+
+    <div id="admin-panel" style="margin-top:10px;display:none;background:rgba(0,0,0,.2);padding:8px;border:1px solid #163550;border-radius:8px;">
+      <div style="font-weight:600;margin-bottom:6px;">Admin boshqaruvi</div>
+      <div style="display:grid; gap:8px;">
+        <div>
+          <input id="url" placeholder="URL (https://...)" style="width:100%;padding:8px;border-radius:6px;border:1px solid #1b3c5b;background:#061625;color:#cde6ff" />
+          <button id="open-url" class="btn" style="margin-top:6px;">URL tayyorla</button>
+          <div id="open-url-out" class="status"></div>
+        </div>
+        <div>
+          <textarea id="note" placeholder="Matnli eslatma yozish" style="width:100%;height:70px;padding:8px;border-radius:6px;border:1px solid #1b3c5b;background:#061625;color:#cde6ff"></textarea>
+          <button id="write-note" class="btn" style="margin-top:6px;">Eslatma saqlash</button>
+          <div id="note-out" class="status"></div>
+        </div>
+        <div>
+          <input id="qrtext" placeholder="QR uchun matn" style="width:100%;padding:8px;border-radius:6px;border:1px solid #1b3c5b;background:#061625;color:#cde6ff" />
+          <button id="gen-qr" class="btn" style="margin-top:6px;">QR yaratish</button>
+          <div id="qr-out" class="status"></div>
+        </div>
+        <div>
+          <button id="play-music" class="btn">Musiqa (sample.mp3)</button>
+          <div id="music-out" class="status"></div>
+        </div>
+        <div>
+          <button id="speedtest" class="btn">Internet tezligini o'lchash</button>
+          <div id="speed-out" class="status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./model_loader.js"></script>
+<script>
+const statusEl = document.getElementById('status');
+const chatEl = document.getElementById('chat');
+const textEl = document.getElementById('text');
+const sendBtn = document.getElementById('send');
+const recBtn = document.getElementById('record');
+const player = document.getElementById('player');
+const subtitle = document.getElementById('subtitle');
+const adminPass = document.getElementById('admin-pass');
+const btnRegister = document.getElementById('btn-register');
+const btnLogin = document.getElementById('btn-login');
+const authState = document.getElementById('auth-state');
+const adminPanel = document.getElementById('admin-panel');
+const openUrlBtn = document.getElementById('open-url');
+const openUrlOut = document.getElementById('open-url-out');
+const urlInput = document.getElementById('url');
+const writeNoteBtn = document.getElementById('write-note');
+const noteArea = document.getElementById('note');
+const noteOut = document.getElementById('note-out');
+const genQrBtn = document.getElementById('gen-qr');
+const qrText = document.getElementById('qrtext');
+const qrOut = document.getElementById('qr-out');
+const musicBtn = document.getElementById('play-music');
+const musicOut = document.getElementById('music-out');
+const speedBtn = document.getElementById('speedtest');
+const speedOut = document.getElementById('speed-out');
+
+window.adminToken = localStorage.getItem('jarvis_token') || '';
+
+async function getStatus(){
+  try{
+    const r = await fetch('/status');
+    const j = await r.json();
+    statusEl.textContent = `TTS backend: ${j.tts_backend} | Model: ${j.model}`;
+    authState.textContent = j.admin_setup_required ? "Holat: ro'yxatga olish kerak" : "Holat: tayyor";
+    if(!j.admin_setup_required && window.adminToken){ adminPanel.style.display='block'; }
+  }catch(e){ statusEl.textContent = 'Holatni olishda xatolik'; }
+}
+
+function pushMsg(who, text){
+  const div = document.createElement('div');
+  div.className = 'msg ' + (who==='me' ? 'me' : 'ai');
+  div.textContent = (who==='me' ? 'Siz: ' : 'JARVIS: ') + text;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+async function speak(text){
+  const r = await fetch('/speak',{
+    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text, voice:'alloy', lang:'uz'})
+  });
+  const j = await r.json();
+  player.src = j.audio_path;
+  subtitle.textContent = j.subtitle;
+  animateVisemes(j.visemes);
+  player.play().catch(()=>{});
+}
+
+sendBtn.onclick = async ()=>{
+  const t = textEl.value.trim();
+  if(!t) return;
+  pushMsg('me', t);
+  textEl.value = '';
+  // command understanding
+  try{
+    const r = await fetch('/command',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text: t})});
+    const j = await r.json();
+    pushMsg('ai', j.result);
+    await speak(j.result);
+  }catch(e){ pushMsg('ai','Xatolik yuz berdi.'); }
+};
+
+// Recording via MediaRecorder -> send blob to /listen
+let mediaRecorder; let chunks=[];
+recBtn.onclick = async ()=>{
+  if(mediaRecorder && mediaRecorder.state === 'recording'){
+    mediaRecorder.stop();
+    recBtn.textContent = '🎙️ Yozish';
+    return;
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  mediaRecorder = new MediaRecorder(stream);
+  chunks=[];
+  mediaRecorder.ondataavailable = (e)=>{ chunks.push(e.data); };
+  mediaRecorder.onstop = async ()=>{
+    const blob = new Blob(chunks, { type: 'audio/webm' });
+    const fd = new FormData();
+    fd.append('file', blob, 'mic.webm');
+    const r = await fetch('/listen', { method:'POST', body: fd });
+    const j = await r.json();
+    const t = j.text || '';
+    if(t){
+      pushMsg('me', t);
+      const r2 = await fetch('/command',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text: t})});
+      const j2 = await r2.json();
+      pushMsg('ai', j2.result);
+      await speak(j2.result);
+    }
+  };
+  mediaRecorder.start();
+  recBtn.textContent = '⏹️ To‘xtatish';
+};
+
+btnRegister.onclick = async ()=>{
+  const pw = adminPass.value.trim(); if(!pw) return;
+  const r = await fetch('/auth/register',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password: pw})});
+  const j = await r.json();
+  authState.textContent = j.ok ? "Ro'yxatdan o'tkazildi" : (j.msg||'Xato');
+  await getStatus();
+};
+
+btnLogin.onclick = async ()=>{
+  const pw = adminPass.value.trim(); if(!pw) return;
+  const r = await fetch('/auth/login',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password: pw})});
+  const j = await r.json();
+  if(j.ok){
+    window.adminToken = j.token; localStorage.setItem('jarvis_token', j.token);
+    adminPanel.style.display = 'block';
+    authState.textContent = 'Kirdingiz';
+  } else {
+    authState.textContent = j.msg || 'Kirishda xatolik';
+  }
+};
+
+async function adminCommand(action, payload={}){
+  if(!window.adminToken){ return {ok:false, msg:'Token yo\'q'} }
+  const r = await fetch('/admin/command',{method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+window.adminToken}, body: JSON.stringify({action, payload})});
+  return await r.json();
+}
+
+openUrlBtn.onclick = async ()=>{
+  const u = urlInput.value.trim(); if(!u) return;
+  const j = await adminCommand('open_url', {url: u});
+  openUrlOut.textContent = j.ok ? (j.msg||'Tayyor') : (j.msg||'Xatolik');
+  if(j.ok && j.msg && u.startsWith('http')){ window.open(u, '_blank'); }
+};
+
+writeNoteBtn.onclick = async ()=>{
+  const txt = noteArea.value; if(!txt) return;
+  const j = await adminCommand('write_note', {text: txt});
+  noteOut.innerHTML = j.ok ? (`Saqlangan: <a href="${j.path}" target="_blank">${j.path}</a>`) : (j.msg||'Xatolik');
+};
+
+genQrBtn.onclick = async ()=>{
+  const t = qrText.value.trim(); if(!t) return;
+  const j = await adminCommand('generate_qr', {text: t});
+  qrOut.innerHTML = j.ok ? (`QR: <a href="${j.path}" target="_blank">ochish</a>`) : (j.msg||'Xatolik');
+};
+
+musicBtn.onclick = async ()=>{
+  const j = await adminCommand('play_music', {file: 'sample.mp3'});
+  if(j.ok && j.audio){ player.src = j.audio; player.play().catch(()=>{}); musicOut.textContent = 'Ijro etilmoqda'; }
+  else { musicOut.textContent = j.msg || 'Xatolik'; }
+};
+
+speedBtn.onclick = async ()=>{
+  speedOut.textContent = 'Hisoblanmoqda... (bu jarayon uzoq davom etishi mumkin)';
+  const j = await adminCommand('speedtest', {});
+  speedOut.textContent = j.ok ? (`↓ ${j.download_mbps} Mbps, ↑ ${j.upload_mbps} Mbps`) : (j.msg||'Xatolik');
+};
+
+getStatus();
+// Startup flow
+window.addEventListener('load', async ()=>{
+  pushMsg('ai', 'Salom, komandir. JARVIS tizimi ishga tushdi.');
+  await speak('JARVIS ishga tushdi.');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Environment variables (Xavfsizlik uchun)
+.env
+
+# Build files
+build/
+*.o
+
+# Runtime files
+.jarvis_pipe
+__pycache__/
