@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Jarvis
+Comment=Jarvis GUI App
+Exec=/home/koma/Desktop/jarvis/dist/main
+Icon=/home/koma/Desktop/jarvis/dist/icon.png   # agar ikonka bo'lsa
+Terminal=false
+Type=Application

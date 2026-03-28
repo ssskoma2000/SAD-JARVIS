@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: jarvis_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+      - ./backend/.env
+    volumes:
+      - ./jarvis_users.db:/app/jarvis_users.db # Ma'lumotlar bazasini saqlab qolish uchun
+      - ./jarvis.log:/app/jarvis.log # Log faylini saqlab qolish uchun
+    networks:
+      - jarvis_network
+
+  frontend:
+    build: ./frontend
+    container_name: jarvis_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - jarvis_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: jarvis_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80" # HTTP
+      # - "443:443" # HTTPS uchun (keyinroq qo'shiladi)
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - jarvis_network
+
+networks:
+  jarvis_network:
+    driver: bridge
